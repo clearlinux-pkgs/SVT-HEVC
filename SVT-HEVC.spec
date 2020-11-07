@@ -4,7 +4,7 @@
 #
 Name     : SVT-HEVC
 Version  : 1.4.1
-Release  : 3
+Release  : 4
 URL      : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.4.1/svt-hevc-1.4.1.tar.gz
 Source0  : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.4.1/svt-hevc-1.4.1.tar.gz
 Summary  : SVT (Scalable Video Technology) for HEVC encoder library
@@ -56,13 +56,14 @@ lib components for the SVT-HEVC package.
 
 %prep
 %setup -q -n SVT-HEVC-1.4.1
+cd %{_builddir}/SVT-HEVC-1.4.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570758114
+export SOURCE_DATE_EPOCH=1604709679
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -70,11 +71,11 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake ..
-make  %{?_smp_mflags}  VERBOSE=1
+make  %{?_smp_mflags}
 popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
@@ -83,13 +84,15 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -march=haswell "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -march=haswell "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -march=haswell "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -march=haswell "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -march=haswell "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -march=haswell "
 export CFLAGS="$CFLAGS -march=haswell -m64"
 export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
+export FFLAGS="$FFLAGS -march=haswell -m64"
+export FCFLAGS="$FCFLAGS -march=haswell -m64"
 %cmake ..
-make  %{?_smp_mflags}  VERBOSE=1
+make  %{?_smp_mflags}
 popd
 mkdir -p clr-build-avx512
 pushd clr-build-avx512
@@ -98,17 +101,19 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -march=skylake-avx512 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -march=skylake-avx512 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -march=skylake-avx512 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -march=skylake-avx512 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -march=skylake-avx512 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -march=skylake-avx512 "
 export CFLAGS="$CFLAGS -march=skylake-avx512 -m64 "
 export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -m64 "
+export FFLAGS="$FFLAGS -march=skylake-avx512 -m64 "
+export FCFLAGS="$FCFLAGS -march=skylake-avx512 -m64 "
 %cmake ..
-make  %{?_smp_mflags}  VERBOSE=1
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1570758114
+export SOURCE_DATE_EPOCH=1604709679
 rm -rf %{buildroot}
 pushd clr-build-avx512
 %make_install_avx512  || :
