@@ -4,7 +4,7 @@
 #
 Name     : SVT-HEVC
 Version  : 1.5.1
-Release  : 8
+Release  : 9
 URL      : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Source0  : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Summary  : SVT (Scalable Video Technology) for HEVC encoder library
