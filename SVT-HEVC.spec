@@ -4,7 +4,7 @@
 #
 Name     : SVT-HEVC
 Version  : 1.5.1
-Release  : 15
+Release  : 16
 URL      : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Source0  : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Summary  : SVT (Scalable Video Technology) for HEVC encoder library
@@ -74,7 +74,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656355699
+export SOURCE_DATE_EPOCH=1667443634
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -94,10 +94,10 @@ export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -msse2avx -mtune=skylake "
-export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -msse2avx -mtune=skylake "
-export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -msse2avx -mtune=skylake "
-export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -msse2avx -mtune=skylake "
+export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -mtune=skylake "
+export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -mtune=skylake "
+export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -mtune=skylake "
+export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -ffat-lto-objects -flto=auto -march=x86-64-v3 -mtune=skylake "
 export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
@@ -111,20 +111,20 @@ export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -msse2avx -mtune=skylake "
-export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -msse2avx -mtune=skylake "
-export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -msse2avx -mtune=skylake "
-export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -msse2avx -mtune=skylake "
-export CFLAGS="$CFLAGS -march=x86-64-v4 -m64 -Wl,-z,x86-64-v4 "
-export CXXFLAGS="$CXXFLAGS -march=x86-64-v4 -m64 -Wl,-z,x86-64-v4 "
-export FFLAGS="$FFLAGS -march=x86-64-v4 -m64 -Wl,-z,x86-64-v4 "
+export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -mprefer-vector-width=512 -mtune=sapphirerapids "
+export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -mprefer-vector-width=512 -mtune=sapphirerapids "
+export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -mprefer-vector-width=512 -mtune=sapphirerapids "
+export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v4 -ffat-lto-objects -flto=auto -march=x86_64-v4 -mprefer-vector-width=512 -mtune=sapphirerapids "
+export CFLAGS="$CFLAGS -march=x86-64-v4 -m64 -Wl,-z,x86-64-v4 -mprefer-vector-width=512"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v4 -m64 -Wl,-z,x86-64-v4 -mprefer-vector-width=512"
+export FFLAGS="$FFLAGS -march=x86-64-v4 -m64 -Wl,-z,x86-64-v4 -mprefer-vector-width=512"
 export FCFLAGS="$FCFLAGS -march=x86-64-v4 -m64 "
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1656355699
+export SOURCE_DATE_EPOCH=1667443634
 rm -rf %{buildroot}
 pushd clr-build-avx2
 %make_install_v3  || :
