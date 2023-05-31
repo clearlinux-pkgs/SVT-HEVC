@@ -5,7 +5,7 @@
 #
 Name     : SVT-HEVC
 Version  : 1.5.1
-Release  : 19
+Release  : 20
 URL      : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Source0  : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Summary  : SVT (Scalable Video Technology) for HEVC encoder library
@@ -66,7 +66,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683234863
+export SOURCE_DATE_EPOCH=1685502147
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -116,7 +116,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1683234863
+export SOURCE_DATE_EPOCH=1685502147
 rm -rf %{buildroot}
 pushd clr-build-avx2
 %make_install_v3  || :
@@ -141,8 +141,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libSvtHevcEnc.so
-/V4/usr/lib64/libSvtHevcEnc.so
 /usr/include/svt-hevc/EbApi.h
 /usr/include/svt-hevc/EbApiVersion.h
 /usr/include/svt-hevc/EbErrorCodes.h
