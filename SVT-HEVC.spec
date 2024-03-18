@@ -7,7 +7,7 @@
 #
 Name     : SVT-HEVC
 Version  : 1.5.1
-Release  : 21
+Release  : 22
 URL      : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Source0  : https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.5.1/SVT-HEVC-1.5.1.tar.gz
 Summary  : SVT (Scalable Video Technology) for HEVC encoder library
@@ -68,7 +68,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1710771087
+export SOURCE_DATE_EPOCH=1710771884
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -89,30 +89,6 @@ export GOAMD64=v2
 %cmake ..
 make  %{?_smp_mflags}
 popd
-mkdir -p clr-build-avx512
-pushd clr-build-avx512
-export GCC_IGNORE_WERROR=1
-export AR=gcc-ar
-export RANLIB=gcc-ranlib
-export NM=gcc-nm
-CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
-CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
-FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
-FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
-ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
-LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-GOAMD64=v4
-CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
-CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
-FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
-FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -march=x86-64-v4 -mprefer-vector-width=512 "
-%cmake ..
-make  %{?_smp_mflags}
-popd
 
 %install
 export GCC_IGNORE_WERROR=1
@@ -129,25 +105,19 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1710771087
+export SOURCE_DATE_EPOCH=1710771884
 rm -rf %{buildroot}
 export GOAMD64=v2
-GOAMD64=v4
-pushd clr-build-avx512
-%make_install_v4  || :
-popd
 GOAMD64=v2
 pushd clr-build
 %make_install
 popd
-/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
-/V4/usr/bin/SvtHevcEncApp
 /usr/bin/SvtHevcEncApp
 
 %files dev
@@ -160,5 +130,4 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V4/usr/lib64/libSvtHevcEnc.so.1
 /usr/lib64/libSvtHevcEnc.so.1
